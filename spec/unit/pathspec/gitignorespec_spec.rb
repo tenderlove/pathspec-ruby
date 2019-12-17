@@ -173,6 +173,16 @@ describe PathSpec::GitIgnoreSpec do
       spec = PathSpec::GitIgnoreSpec.new 'ab[!]f'
       expect(spec).to match('ab[!]f')
     end
+
+    it 'matches ab[]f[g]' do
+      spec = PathSpec::GitIgnoreSpec.new 'ab[]f[g]'
+      expect(spec).to match('ab[]fg')
+    end
+
+    it 'matches ab[!]f[g]' do
+      spec = PathSpec::GitIgnoreSpec.new 'ab[!]f[g]'
+      expect(spec).to match('ab[!]fg')
+    end
   end
 
   describe 'handles unmatched brackets' do
