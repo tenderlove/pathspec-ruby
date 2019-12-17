@@ -163,6 +163,18 @@ describe PathSpec::GitIgnoreSpec do
     it { is_expected.to be_inclusive }
   end
 
+  describe 'bracket corner cases' do
+    it 'matches empty []' do
+      spec = PathSpec::GitIgnoreSpec.new 'ab[]f'
+      expect(spec).to match('ab[]f')
+    end
+
+    it 'matches [!]' do
+      spec = PathSpec::GitIgnoreSpec.new 'ab[!]f'
+      expect(spec).to match('ab[!]f')
+    end
+  end
+
   describe 'handles unmatched brackets' do
     subject { PathSpec::GitIgnoreSpec.new '*[*[*' }
     it { is_expected.to match('bracket[oh[wow') }
